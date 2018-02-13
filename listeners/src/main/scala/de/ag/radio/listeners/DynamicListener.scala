@@ -11,8 +11,7 @@ class DynamicListener(initial: Listener = DeafListener) extends Listener {
   override def isListening(componentPath: List[String], messageType: MessageType) =
     base.get().isListening(componentPath, messageType)
 
-  override def process(componentPath: List[String], messageType: MessageType, message: => String, context: Map[String, ContextValue], exception: Option[Throwable], time: Instant) =
-    base.get().process(componentPath, messageType, message, context, exception, time)
+  override def process(message: Message) = base.get().process(message)
 
   override def close() { base.get().close() }
 

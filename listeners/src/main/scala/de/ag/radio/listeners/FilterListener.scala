@@ -12,7 +12,7 @@ private [listeners] abstract class FilterListener(next: Listener) extends Listen
     filter(componentPath, messageType) && next.isListening(componentPath, messageType)
   }
 
-  override def process(componentPath: List[String], messageType: MessageType, message: => String, context: Map[String, ContextValue], exception: Option[Throwable], time: Instant) {
-    if (filter(componentPath, messageType)) next.process(componentPath, messageType, message, context, exception, time)
+  override def process(message: Message) {
+    if (filter(message.componentPath, message.messageType)) next.process(message)
   }
 }

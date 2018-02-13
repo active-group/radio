@@ -14,10 +14,10 @@ class Sequential(val listeners: Seq[Listener]) extends Listener {
   /**
     * Note: even if isEnabled returnd false for some kind of message, this method may still be called with it.
     */
-  override def process(componentPath: List[String], messageType: MessageType, message: => String, context: Map[String, ContextValue], exception: Option[Throwable], time: Instant) = {
+  override def process(message: Message) = {
     listeners.foreach { l =>
-      if (l.isListening(componentPath, messageType))
-        l.process(componentPath, messageType, message, context, exception, time)
+      if (l.isListening(message.componentPath, message.messageType))
+        l.process(message)
     }
   }
 }
