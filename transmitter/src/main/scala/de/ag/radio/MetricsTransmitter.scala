@@ -8,7 +8,8 @@ final class MetricTransmitter(val that: Transmitter) {
   import scala.concurrent.duration._
 
   final def timeMetric(audience: Audience, msg: Duration => String)(value: Duration): Unit = {
-    that.withContext("metric.valueNanos", value.toNanos).metric(audience, msg(value))
+    val s = msg(value)
+    that.withContext("metric.valueNanos", value.toNanos).metric(audience, s)
   }
 
   final def syncTimeMetric[A](audience: Audience, msg: Duration => String)(body: => A): A = {

@@ -4,7 +4,7 @@ import de.ag.radio._
 import java.time.Instant
 
 private[listeners] abstract class BlackWhiteListListener(next: Listener, componentPathPrefixes: Set[List[String]]) extends FilterListener(next) {
-  protected override def filter(componentPath: List[String], messageType: MessageType) =
+  protected override def filter(messageType: MessageType, componentPath: List[String], context: Map[String, ContextValue]) =
     cond(componentPathPrefixes.exists(componentPath.startsWith(_)))
 
   protected def cond(v: Boolean): Boolean

@@ -8,15 +8,12 @@ class Sequential(val listeners: Seq[Listener]) extends Listener {
     listeners.foreach(_.close())
   }
 
-  override def isListening(componentPath: List[String], messageType: MessageType) =
-    listeners.exists(_.isListening(componentPath, messageType))
+  override def isListening(messageType: MessageType, componentPath: List[String], context: Map[String, ContextValue]) =
+    listeners.exists(_.isListening(messageType, componentPath, context))
 
-  /**
-    * Note: even if isEnabled returnd false for some kind of message, this method may still be called with it.
-    */
   override def process(message: Message) = {
     listeners.foreach { l =>
-      if (l.isListening(message.componentPath, message.messageType))
+      if (l.isListening(message.messageType, message.componentPath, message.context))
         l.process(message)
     }
   }

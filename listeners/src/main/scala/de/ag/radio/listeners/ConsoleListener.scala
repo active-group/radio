@@ -46,7 +46,7 @@ object ConsoleTextFormat {
 case class ConsoleListener(format: MessageTextFormat) extends TextListener(format) {
   def close() {}
 
-  def isListening(componentPath: List[String], messageType: de.ag.radio.MessageType) = true
+  def isListening(messageType: de.ag.radio.MessageType, componentPath: List[String], context: Map[String, ContextValue]) = true
 
   def process(message: String) = println(message)
 

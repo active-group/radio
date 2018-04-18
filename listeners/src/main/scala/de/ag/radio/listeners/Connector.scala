@@ -4,7 +4,7 @@ import de.ag.radio._
 import java.time.Instant
 
 private[listeners] case class Connector(listener: Listener, componentPath: List[String] = List.empty, context: Map[String, ContextValue] = Map.empty) extends Transmitter {
-  override def hasListeners(mtype: MessageType) = listener.isListening(componentPath, mtype)
+  override def hasListeners(mtype: MessageType) = listener.isListening(mtype, componentPath, context)
 
   override def message(mtype: MessageType, msg: => String, exception: Option[Throwable] = None, time: Option[Instant] = None) {
     if (this.hasListeners(mtype)) {

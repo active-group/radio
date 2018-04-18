@@ -8,8 +8,8 @@ class DynamicListener(initial: Listener = DeafListener) extends Listener {
 
   private val base = new AtomicReference[Listener](initial)
 
-  override def isListening(componentPath: List[String], messageType: MessageType) =
-    base.get().isListening(componentPath, messageType)
+  override def isListening(messageType: MessageType, componentPath: List[String], context: Map[String, ContextValue]) =
+    base.get().isListening(messageType, componentPath, context)
 
   override def process(message: Message) = base.get().process(message)
 

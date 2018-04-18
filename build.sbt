@@ -9,7 +9,8 @@ lazy val transmitter = project.in(file("transmitter")).
 lazy val listeners = project.in(file("listeners")).
   settings(Build.global_settings :_*).
   settings(
-    name := "radio-listeners"
+    name := "radio-listeners",
+    libraryDependencies += "org.slf4j" % "slf4j-api" % "1.7.25"
   ).
   dependsOn(transmitter)
 
