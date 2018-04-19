@@ -46,7 +46,7 @@ case class SLF4JListener(level: SLF4JLevel, marker: Option[SLF4JMarker] = None, 
       try {
         f
       } finally {
-        MDC.setContextMap(prev)
+        if (prev == null) MDC.clear() else MDC.setContextMap(prev)
       }
     } else {
       f
